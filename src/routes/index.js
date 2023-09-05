@@ -6,7 +6,7 @@ const AppRoutes = () => {
   return (
     // <React.Suspense fallback={<LoadingLayout>Loading...</LoadingLayout>}>
     <Routes>
-      <Route path="/login" element={Login} />
+      <Route path="/login" element={<Login />} />
     </Routes>
     // </React.Suspense>
   );
