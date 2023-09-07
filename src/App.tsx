@@ -1,11 +1,14 @@
-import { useState } from 'react';
-import LogInPage from './pages/login/login';
-import './App.css';
+import "./App.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+import AppRoutes from "./routes";
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <>
-      <LogInPage />
+      <QueryClientProvider client={queryClient}>
+        <AppRoutes />
+      </QueryClientProvider>
     </>
   );
 }
