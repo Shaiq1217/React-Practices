@@ -8,7 +8,12 @@ interface Props {
   onClick?: () => void;
 }
 
-const Button = ({ text, border = '', disabled, onClick }: Props) => {
+export default function Button({
+  text,
+  border = '',
+  disabled,
+  onClick,
+}: Props) {
   const combinedClassName = `${styles[border]} ${styles.btnDistance}`;
 
   return (
@@ -20,6 +25,4 @@ const Button = ({ text, border = '', disabled, onClick }: Props) => {
       {text}
     </button>
   );
-};
-
-export default Button;
+}

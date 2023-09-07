@@ -1,0 +1,6 @@
+.cardContainer {
+  display: flex;
+}
+.scrollControl {
+  overflow-y: auto;
+}
