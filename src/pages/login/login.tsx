@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import FormInputText from '../../components/commons/formtextinput/formInputText';
 import { z, string } from 'zod';
-import gslogo from '../../assets/gslogo.png';
+import gslogo from '../../assets/gslogo-red.png';
 import styles from './login.module.css';
 import Button from '../../components/commons/button/button';
 const validationSchema = z.object({
@@ -48,15 +48,16 @@ const LogInPage = () => {
         component='main'
         maxWidth='xs'
         style={{
-          border: '1px solid red',
+          border: '1px solid #007fff',
           borderRadius: '0 10%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           marginTop: '5rem',
+          marginInlineStart: '35vw',
           minHeight: '70vh',
-          minWidth: '10vw',
+          minWidth: '30vw',
         }}
       >
         <FormProvider {...methods}>

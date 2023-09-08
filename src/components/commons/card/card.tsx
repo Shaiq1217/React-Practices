@@ -6,10 +6,8 @@ import {
   CardActions,
   Switch,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import styles from './card.module.css';
-import EditRoundedIcon from '@mui/icons-material/Edit';
-
+import HandlerButtons from '../handlers/handler';
 interface Props {
   id: number;
   name: string;
@@ -17,7 +15,7 @@ interface Props {
   isActive: boolean;
   onEdit: () => void;
   onDelete: () => void;
-  onToggleActive: (e: boolean) => boolean;
+  onToggleActive: (e: boolean) => void;
 }
 
 export default function InfoCard({
@@ -33,10 +31,11 @@ export default function InfoCard({
     <Card
       sx={{
         minWidth: 275,
-        margin: '1rem',
+        margin: '1.25rem',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'stretch',
+        boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.197)',
       }}
     >
       <CardContent>
@@ -64,20 +63,11 @@ export default function InfoCard({
         </Typography>
       </CardContent>
       <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <EditRoundedIcon
-          sx={{ fontSize: 18, cursor: 'pointer', marginLeft: 'auto' }}
-          onClick={onEdit}
-        />
-        <DeleteIcon
-          sx={{ fontSize: 18, color: 'red', cursor: 'pointer' }}
-          onClick={onDelete}
-        />
-        <Switch
-          checked={isActive}
-          inputProps={{ 'aria-label': 'controlled' }}
-          size='small'
-          sx={{ color: 'red', cursor: 'pointer' }}
-          onClick={() => onToggleActive(isActive)}
+        <HandlerButtons
+          isActive={isActive}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          onToggleActive={onToggleActive}
         />
       </CardActions>
     </Card>

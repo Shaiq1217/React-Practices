@@ -2,9 +2,17 @@ import React, { useState } from 'react';
 import styles from './applications.module.css';
 import InfoCard from '../commons/card/card';
 import EditModal from '../commons/modal/modal';
-
+import ToolBar from '../commons/toolbar/toolBar';
+import {
+  data,
+  handleEdit,
+  handleCloseModal,
+  handleDelete,
+  handleSearch,
+  handleToggleActive,
+} from '../../utils/dataUtils';
 const Applications = () => {
-  const [data, setData] = useState([
+  const [data, setData] = useState<data[]>([
     {
       id: 1,
       name: 'ETS',
@@ -12,37 +20,37 @@ const Applications = () => {
       isActive: true,
     },
     {
-      id: 2,
+      id: 3,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
     },
     {
-      id: 2,
+      id: 4,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
     },
     {
-      id: 2,
+      id: 5,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
     },
     {
-      id: 2,
+      id: 6,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
     },
     {
-      id: 2,
+      id: 7,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
     },
     {
-      id: 2,
+      id: 8,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
@@ -50,35 +58,38 @@ const Applications = () => {
   ]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [editedCardId, setEditedCardId] = useState(null);
-
-  const handleEdit = (id) => {
-    // Handle the edit action for the card with the given ID
-    console.log(`Edit action for card with ID ${id}`);
-    setEditedCardId(id); // Store the edited card's ID
-    setIsModalOpen(true); // Open the modal
+  const [searchText, setSearchText] = useState('');
+  const handleEditWrapper = (id) => {
+    handleEdit(id);
+    setEditedCardId(id);
+    setIsModalOpen(true);
   };
 
-  const handleDelete = (id: number) => {
-    console.log(`Delete action for card with ID ${id}`);
+  const handleDeleteWrapper = (id: number) => {
+    handleDelete(id, data, setData);
   };
 
-  const handleToggleActive = (id: number) => {
-    setData((prevData) =>
-      prevData.map((ele) =>
-        ele.id === id ? { ...ele, isActive: !ele.isActive } : ele
-      )
-    );
+  const handleToggleActiveWrapper = (id: number) => {
+    handleToggleActive(id, data, setData);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setEditedCardId(null);
+  const handleCloseModalWrapper = () => {
+    handleCloseModal(setIsModalOpen, setEditedCardId);
+  };
+
+  const handleSearchWrapper = () => {
+    handleSearch(searchText, data, setData);
   };
 
   return (
     <>
+      <ToolBar
+        text={'Applications'}
+        onSearch={handleSearchWrapper}
+        setSearchText={setSearchText}
+        searchText={searchText}
+      />
       <div className={styles.scrollControl}>
         <div className={styles.cardContainer}>
           {data.map((ele) => (
@@ -88,16 +99,16 @@ const Applications = () => {
               name={ele.name}
               description={ele.description}
               isActive={ele.isActive}
-              onEdit={() => handleEdit(ele.id)}
-              onDelete={() => handleDelete(ele.id)}
-              onToggleActive={() => handleToggleActive(ele.id)}
+              onEdit={() => handleEditWrapper(ele.id)}
+              onDelete={() => handleDeleteWrapper(ele.id)}
+              onToggleActive={() => handleToggleActiveWrapper(ele.id)}
             />
           ))}
         </div>
         <EditModal
           cardTitle='Edit Application'
           open={isModalOpen}
-          handleClose={handleCloseModal}
+          handleClose={handleCloseModalWrapper}
           cardId={editedCardId} // Pass the edited card's ID to the modal
         />
       </div>
