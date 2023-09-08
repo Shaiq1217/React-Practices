@@ -1,4 +1,6 @@
-import { Container, CssBaseline, Box } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import { Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import FormInputText from '../../components/commons/formtextinput/formInputText';
@@ -20,8 +22,7 @@ interface IFormInput {
 
 const LogInPage = () => {
   const methods = useForm<IFormInput>();
-  const { handleSubmit, formState, setError } = methods;
-  const { errors } = formState;
+  const { handleSubmit, setError } = methods;
 
   const onSubmit = async (data: IFormInput) => {
     try {
