@@ -2,72 +2,35 @@ import { useState } from 'react';
 import { Box } from '@mui/material';
 import GridComponent from '../commons/grid/Grid';
 import DisplayDriver from '../commons/driver/displaydriver';
-import styles from './Events.module.css';
-const Events = () => {
+const Notifications = () => {
   const [data, setData] = useState([
     {
       id: 1,
-      name: 'event-name-1',
+      name: 'notification-name-1',
       description: 'description',
       isActive: true,
     },
     {
       id: 2,
-      name: 'event-name-1',
+      name: 'notification-name-1',
       description: 'description',
       isActive: true,
     },
     {
       id: 3,
-      name: 'event-name-1',
+      name: 'notification-name-1',
       description: 'description',
       isActive: true,
     },
     {
       id: 4,
-      name: 'event-name-1',
+      name: 'notification-name-1',
       description: 'description',
       isActive: true,
     },
     {
       id: 5,
-      name: 'event-name-1',
-      description: 'description',
-      isActive: true,
-    },
-    {
-      id: 6,
-      name: 'event-name-1',
-      description: 'description',
-      isActive: true,
-    },
-    {
-      id: 7,
-      name: 'event-name-1',
-      description: 'description',
-      isActive: true,
-    },
-    {
-      id: 8,
-      name: 'event-name-1',
-      description: 'description',
-      isActive: true,
-    },
-    {
-      id: 9,
-      name: 'event-name-1',
-      description: 'description',
-      isActive: true,
-    },
-    {
-      id: 10,
-      name: 'event-name-1',
-      description: 'description',
-      isActive: true,
-    },
-    {
-      id: 11,
-      name: 'event-name-1',
+      name: 'notification-name-1',
       description: 'description',
       isActive: true,
     },
@@ -88,7 +51,7 @@ const Events = () => {
 
   return (
     <>
-      <div className={styles.heightControl}>
+      <Box sx={{ marginBlockStart: '2rem' }}>
         <DisplayDriver
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
@@ -99,12 +62,12 @@ const Events = () => {
           editedCardId={editedCardId}
           setEditedCardId={setEditedCardId}
           renderComponent={renderComponent}
-          modalTitle={'Edit Events'}
-          toolBarTitle={'Events'}
+          modalTitle={'Edit Notification'}
+          toolBarTitle={'Notifications'}
         />
-      </div>
+      </Box>
     </>
   );
 };
 
-export default Events;
+export default Notifications;

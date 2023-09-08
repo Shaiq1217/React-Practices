@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
-import styles from './applications.module.css';
 import InfoCard from '../commons/card/card';
-import EditModal from '../commons/modal/modal';
-import ToolBar from '../commons/toolbar/toolBar';
-import {
-  data,
-  handleEdit,
-  handleCloseModal,
-  handleDelete,
-  handleSearch,
-  handleToggleActive,
-} from '../../utils/dataUtils';
+import { data } from '../../utils/dataUtils';
+import { Box } from '@mui/material';
+import DisplayDriver from '../commons/driver/displaydriver';
+import styles from './applications.module.css';
+import { useState } from 'react';
 const Applications = () => {
   const [data, setData] = useState<data[]>([
     {
@@ -60,58 +53,37 @@ const Applications = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedCardId, setEditedCardId] = useState(null);
   const [searchText, setSearchText] = useState('');
-  const handleEditWrapper = (id) => {
-    handleEdit(id);
-    setEditedCardId(id);
-    setIsModalOpen(true);
-  };
 
-  const handleDeleteWrapper = (id: number) => {
-    handleDelete(id, data, setData);
-  };
-
-  const handleToggleActiveWrapper = (id: number) => {
-    handleToggleActive(id, data, setData);
-  };
-
-  const handleCloseModalWrapper = () => {
-    handleCloseModal(setIsModalOpen, setEditedCardId);
-  };
-
-  const handleSearchWrapper = () => {
-    handleSearch(searchText, data, setData);
-  };
-
-  return (
-    <>
-      <ToolBar
-        text={'Applications'}
-        onSearch={handleSearchWrapper}
-        setSearchText={setSearchText}
-        searchText={searchText}
-      />
-      <div className={styles.scrollControl}>
-        <div className={styles.cardContainer}>
-          {data.map((ele) => (
-            <InfoCard
-              key={ele.id}
-              id={ele.id}
-              name={ele.name}
-              description={ele.description}
-              isActive={ele.isActive}
-              onEdit={() => handleEditWrapper(ele.id)}
-              onDelete={() => handleDeleteWrapper(ele.id)}
-              onToggleActive={() => handleToggleActiveWrapper(ele.id)}
-            />
-          ))}
-        </div>
-        <EditModal
-          cardTitle='Edit Application'
-          open={isModalOpen}
-          handleClose={handleCloseModalWrapper}
-          cardId={editedCardId} // Pass the edited card's ID to the modal
+  const renderComponent = () => (
+    <div className={styles.scrollControl}>
+      <div className={styles.cardContainer}>
+        <InfoCard
+          data={data}
+          setData={setData}
+          code={'App#123'}
+          setEditedCardId={setEditedCardId}
+          setIsModalOpen={setIsModalOpen}
         />
       </div>
+    </div>
+  );
+  return (
+    <>
+      <Box>
+        <DisplayDriver
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          searchText={searchText}
+          setSearchText={setSearchText}
+          data={data}
+          setData={setData}
+          editedCardId={editedCardId}
+          setEditedCardId={setEditedCardId}
+          renderComponent={renderComponent}
+          modalTitle={'Edit Application'}
+          toolBarTitle={'Applications'}
+        />
+      </Box>
     </>
   );
 };

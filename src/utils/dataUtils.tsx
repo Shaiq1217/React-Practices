@@ -6,8 +6,14 @@ export interface data {
   isActive: boolean;
 }
 
-export const handleEdit = (id: number) => {
+export const handleEdit = (
+  id: number,
+  setEditedCardId: React.Dispatch<React.SetStateAction<null>>,
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   console.log(`Edit action for card with ID ${id}`);
+  setEditedCardId(id);
+  setIsModalOpen(true);
 };
 
 export const handleDelete = (

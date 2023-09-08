@@ -7,7 +7,7 @@ interface Props {
   isActive: boolean;
   onEdit: () => void;
   onDelete: () => void;
-  onToggleActive: (e: boolean) => boolean;
+  onToggleActive: (e: boolean) => void;
 }
 
 const HandlerButtons = ({

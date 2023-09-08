@@ -4,6 +4,7 @@ import TopBar from '../../components/commons/topbar/TopBar';
 
 import styles from './dashboard.module.css';
 import Events from '../../components/events/events';
+import Notifications from '../../components/notifications/notifications';
 
 const DashboardContainer = () => {
   return (
@@ -19,6 +20,7 @@ const DashboardContainer = () => {
         >
           <Applications />
           <Events />
+          <Notifications />
         </Box>
       </div>
     </>
