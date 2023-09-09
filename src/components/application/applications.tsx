@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import styles from './applications.module.css';
 import InfoCard from '../commons/card/card';
-import EditModal from '../commons/modal/modal';
-
+import { data } from '../../utils/dataUtils';
+import { Box } from '@mui/material';
+import DisplayDriver from '../commons/driver/displaydriver';
+import styles from './applications.module.css';
+import { useState } from 'react';
 const Applications = () => {
-  const [data, setData] = useState([
+  const [data, setData] = useState<data[]>([
     {
       id: 1,
       name: 'ETS',
@@ -12,37 +13,37 @@ const Applications = () => {
       isActive: true,
     },
     {
-      id: 2,
+      id: 3,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
     },
     {
-      id: 2,
+      id: 4,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
     },
     {
-      id: 2,
+      id: 5,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
     },
     {
-      id: 2,
+      id: 6,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
     },
     {
-      id: 2,
+      id: 7,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
     },
     {
-      id: 2,
+      id: 8,
       name: 'LMS',
       description: 'this is an application',
       isActive: false,
@@ -50,57 +51,39 @@ const Applications = () => {
   ]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [editedCardId, setEditedCardId] = useState(null);
+  const [searchText, setSearchText] = useState('');
 
-  const handleEdit = (id) => {
-    // Handle the edit action for the card with the given ID
-    console.log(`Edit action for card with ID ${id}`);
-    setEditedCardId(id); // Store the edited card's ID
-    setIsModalOpen(true); // Open the modal
-  };
-
-  const handleDelete = (id: number) => {
-    console.log(`Delete action for card with ID ${id}`);
-  };
-
-  const handleToggleActive = (id: number) => {
-    setData((prevData) =>
-      prevData.map((ele) =>
-        ele.id === id ? { ...ele, isActive: !ele.isActive } : ele
-      )
-    );
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setEditedCardId(null);
-  };
-
-  return (
-    <>
-      <div className={styles.scrollControl}>
-        <div className={styles.cardContainer}>
-          {data.map((ele) => (
-            <InfoCard
-              key={ele.id}
-              id={ele.id}
-              name={ele.name}
-              description={ele.description}
-              isActive={ele.isActive}
-              onEdit={() => handleEdit(ele.id)}
-              onDelete={() => handleDelete(ele.id)}
-              onToggleActive={() => handleToggleActive(ele.id)}
-            />
-          ))}
-        </div>
-        <EditModal
-          cardTitle='Edit Application'
-          open={isModalOpen}
-          handleClose={handleCloseModal}
-          cardId={editedCardId} // Pass the edited card's ID to the modal
+  const renderComponent = () => (
+    <div className={styles.scrollControl}>
+      <div className={styles.cardContainer}>
+        <InfoCard
+          data={data}
+          setData={setData}
+          code={'App#123'}
+          setEditedCardId={setEditedCardId}
+          setIsModalOpen={setIsModalOpen}
         />
       </div>
+    </div>
+  );
+  return (
+    <>
+      <Box>
+        <DisplayDriver
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          searchText={searchText}
+          setSearchText={setSearchText}
+          data={data}
+          setData={setData}
+          editedCardId={editedCardId}
+          setEditedCardId={setEditedCardId}
+          renderComponent={renderComponent}
+          modalTitle={'Edit Application'}
+          toolBarTitle={'Applications'}
+        />
+      </Box>
     </>
   );
 };

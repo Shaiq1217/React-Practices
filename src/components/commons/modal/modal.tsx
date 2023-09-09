@@ -33,16 +33,22 @@ interface IFormInput {
 }
 
 interface Props {
-  id: number;
-  cardTitle: string;
+  id: number | null;
+  modalTitle: string;
   open: boolean;
   handleClose: () => void;
 }
-export default function EditModal({ cardTitle, id, open, handleClose }: Props) {
+export default function EditModal({
+  modalTitle,
+  id,
+  open,
+  handleClose,
+}: Props) {
   const methods = useForm<IFormInput>();
   const { handleSubmit, setError } = methods;
 
   const onSubmit = async (data: IFormInput) => {
+    console.log(id);
     try {
       await validationSchema.parseAsync(data); // Validate the form data using Zod
       console.log(data); // Submit the data if it's valid
@@ -74,7 +80,16 @@ export default function EditModal({ cardTitle, id, open, handleClose }: Props) {
               fontSize: '2rem',
             }}
           >
-            {cardTitle}
+            {modalTitle}
+          </Typography>
+          <Typography
+            sx={{
+              color: 'black',
+              textAlign: 'left',
+              fontSize: '2rem',
+            }}
+          >
+            {id}
           </Typography>
           <FormProvider {...methods}>
             <FormInputText name='name' label='Title' type='text' />

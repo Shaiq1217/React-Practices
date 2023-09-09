@@ -1,7 +1,7 @@
-.cardContainer {
-  display: flex;
+.heightControl {
+  max-height: 40vh;
+  overflow-y: auto;
 }
-
 .scrollControl {
   overflow-y: auto;
   scrollbar-width: thin;
