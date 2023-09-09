@@ -1,5 +1,4 @@
 import { ISignUp, ILogin } from "../types/auth";
-import { useQuery } from "@tanstack/react-query";
 import APIClient from "./axios";
 
 export const signUpService = async (data: ISignUp) => {

@@ -1,20 +1,25 @@
 import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
 import { Application } from "../types/application";
-import axios from "axios";
+import apiClient from "./axios";
 
-const baseURL = process.env.REACT_APP_API_HOST;
-
-export const useApplications = (userId: number | undefined) =>
+export const useGetApplications = (data: object | undefined) =>
   useQuery<Application[], Error>({
-    queryKey: ["users", userId, "posts"],
+    queryKey: ["applications", data],
+    queryFn: async () => {
+      const response = await apiClient("/applications", "get", data);
+      return response.data;
+    },
+    staleTime: 1 * 60 * 1000,
+    keepPreviousData: true,
+  });
+
+export const useGetApplication = (applicationId: number | undefined) =>
+  useQuery<Application[], Error>({
+    queryKey: ["applications", applicationId],
     queryFn: async (context: QueryFunctionContext) => {
       const { queryKey } = context;
-      const userId = queryKey[1];
-      const response = await axios.get(`${baseURL}/applications`, {
-        // params: {
-        //   userId,
-        // },
-      });
+      const applicationId = queryKey[1];
+      const response = await apiClient(`/applications${applicationId}`, "get");
       return response.data;
     },
     staleTime: 1 * 60 * 1000,
