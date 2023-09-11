@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styles from './Grid.module.css';
+import React, { useState } from "react";
+import styles from "./styles.module.css";
 import {
   Table,
   TableBody,
@@ -7,16 +7,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from '@mui/material';
-import HandlerButtons from '../handlers/handler';
+} from "@mui/material";
+import HandlerButtons from "../handlers/handler";
 import {
-  data as initialData,
+  data,
   handleEdit,
   handleDelete,
   handleToggleActive,
-} from '../../../utils/dataUtils';
+} from "../../../utils/dataUtils";
 
-import PaginationControls from '../paginationControl/paginationControl';
+import PaginationControls from "../paginationControl/paginationControl";
 
 interface Props {
   data: data[];
@@ -51,10 +51,10 @@ const GridComponent: React.FC<Props> = ({
     <div className={styles.heightControl}>
       <TableContainer>
         <Table>
-          <TableHead sx={{ position: 'sticky', top: 0 }}>
+          <TableHead sx={{ position: "sticky", top: 0 }}>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Title</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Description</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Title</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Description</TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
