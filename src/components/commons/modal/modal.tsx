@@ -1,13 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, Controller } from 'react-hook-form';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
 import { z, string } from 'zod';
 import FormInputText from '../formtextinput/formInputText';
+import styles from './modal.module.css';
 const style = {
   position: 'absolute' as const,
   top: '50%',
@@ -19,7 +18,10 @@ const style = {
   boxShadow: 24,
   p: 4,
   gap: 1,
+  minWidth: '30vw',
+  minHeight: '30vh',
 };
+
 const validationSchema = z.object({
   name: string().min(3, 'Length should be more than 3'),
   description: string()
@@ -33,28 +35,28 @@ interface IFormInput {
 }
 
 interface Props {
-  id: number | null;
+  nameOriginal: string | null;
+  descriptionOriginal: string | null;
   modalTitle: string;
   open: boolean;
   handleClose: () => void;
 }
+
 export default function EditModal({
   modalTitle,
-  id,
+  nameOriginal,
+  descriptionOriginal,
   open,
   handleClose,
 }: Props) {
-  const methods = useForm<IFormInput>();
-  const { handleSubmit, setError } = methods;
+  const methods = useForm<IFormInput>({});
+  const { handleSubmit, setError, control } = methods;
 
   const onSubmit = async (data: IFormInput) => {
-    console.log(id);
     try {
-      await validationSchema.parseAsync(data); // Validate the form data using Zod
-      console.log(data); // Submit the data if it's valid
+      await validationSchema.parseAsync(data);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        // Handle Zod validation error
         error.errors.forEach((validationError) => {
           if (validationError.path[0]) {
             const fieldName = validationError.path[0];
@@ -64,6 +66,7 @@ export default function EditModal({
       }
     }
   };
+
   return (
     <div>
       <Modal
@@ -72,7 +75,13 @@ export default function EditModal({
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Box sx={style} display='flex' flexDirection='column' alignItems='left'>
+        <Box
+          sx={style}
+          display='flex'
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='space-between'
+        >
           <Typography
             sx={{
               color: 'black',
@@ -82,19 +91,22 @@ export default function EditModal({
           >
             {modalTitle}
           </Typography>
-          <Typography
-            sx={{
-              color: 'black',
-              textAlign: 'left',
-              fontSize: '2rem',
-            }}
-          >
-            {id}
-          </Typography>
-          <FormProvider {...methods}>
-            <FormInputText name='name' label='Title' type='text' />
 
-            <FormInputText name='description' label='Description' type='text' />
+          <FormProvider {...methods}>
+            <Box sx={{ marginBlock: '2rem' }}>
+              <FormInputText
+                name='name'
+                label='Title'
+                type='text'
+                defaultValue={nameOriginal}
+              />
+              <FormInputText
+                name='description'
+                label='Description'
+                type='text'
+                defaultValue={descriptionOriginal}
+              />
+            </Box>
             <Box id='controller-buttons'>
               <Button variant='text' onClick={handleClose}>
                 Close

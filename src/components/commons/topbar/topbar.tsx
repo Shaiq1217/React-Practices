@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import gslogo from '../../../assets/gslogo-white.svg';
-import styles from './TopBar.module.css';
+import styles from './topbar.module.css';
 const TopBar = () => {
   return (
     <AppBar

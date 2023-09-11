@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import SortIcon from '@mui/icons-material/Sort';
+import AddIcon from '@mui/icons-material/Add';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Box, Typography } from '@mui/material';
+import EditModal from '../modal/modal';
 
 const inputStyles = {
   backgroundColor: 'white', // Background color for the search input
@@ -17,15 +19,23 @@ const inputStyles = {
 };
 
 interface Props {
+  AddModalId: number;
   onSearch: () => void;
   text: string;
   searchText: string;
   setSearchText: (text: string) => void;
 }
 
-const ToolBar = ({ onSearch, searchText, setSearchText, text }: Props) => {
+const ToolBar = ({
+  onSearch,
+  searchText,
+  setSearchText,
+  text,
+  AddModalId,
+}: Props) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [sortBy, setSortBy] = useState(''); // State to track the selected sorting option
+  const [sortBy, setSortBy] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleInputChange = (e) => {
     setSearchText(e.target.value);
@@ -43,11 +53,26 @@ const ToolBar = ({ onSearch, searchText, setSearchText, text }: Props) => {
     setSortBy(option);
     setAnchorEl(null);
   };
+  const handleOpenModal = (id) => {
+    setIsModalOpen(true);
+  };
+  function titleModal() {
+    if (AddModalId === 1) {
+      return 'Add New Application';
+    } else if (AddModalId === 2) {
+      return 'Add New Event';
+    } else if (AddModalId === 3) {
+      return 'Add New Notification';
+    } else {
+      return 'Undefined';
+    }
+  }
 
   return (
     <AppBar position='static' sx={{ backgroundColor: 'white' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Typography sx={{ color: 'black' }}>{text}</Typography>
+
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <InputBase
             placeholder='Search…'
@@ -81,8 +106,17 @@ const ToolBar = ({ onSearch, searchText, setSearchText, text }: Props) => {
               Sort Option 2
             </MenuItem>
           </Menu>
+          <IconButton onClick={() => handleOpenModal(AddModalId)}>
+            <AddIcon />
+          </IconButton>
         </Box>
       </Toolbar>
+      <EditModal
+        modalTitle={titleModal()}
+        id={1}
+        open={isModalOpen}
+        handleClose={() => setIsModalOpen(false)}
+      />
     </AppBar>
   );
 };
