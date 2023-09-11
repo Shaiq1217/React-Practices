@@ -1,4 +1,9 @@
-import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
+import {
+  useQuery,
+  QueryFunctionContext,
+  useMutation,
+  QueryClient,
+} from "@tanstack/react-query";
 import { Application } from "../types/application";
 import apiClient from "./axios";
 
@@ -39,3 +44,20 @@ export const useGetEvents = (applicationId: number | undefined) =>
     },
     staleTime: 1 * 60 * 1000,
   });
+
+export const useAddApplication = () => {
+  const queryClient = new QueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      const response = await apiClient(`/applications`, "post");
+      return response.data;
+    },
+    onSuccess: (savedApplications) => {
+      queryClient.setQueryData<Application>(
+        ["applications"],
+        (applications) => [savedApplications, ...applications]
+      );
+    },
+  });
+};
