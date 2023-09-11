@@ -1,4 +1,7 @@
+import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 interface PaginationControlsProps {
   currentPage: number;
@@ -11,19 +14,37 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
   totalPages,
   onPageChange,
 }) => {
-  const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
-
   return (
     <div>
-      {pages.map((page) => (
-        <button
-          key={page}
-          onClick={() => onPageChange(page)}
-          disabled={page === currentPage}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 4,
+        }}
+      >
+        <Button
+          sx={{
+            fontSize: '1.2rem',
+          }}
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
         >
-          {page}
-        </button>
-      ))}
+          <KeyboardArrowLeftIcon />
+        </Button>
+        <Typography>{currentPage}</Typography>
+
+        <Button
+          sx={{
+            fontSize: '1.2rem',
+          }}
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          <KeyboardArrowRightIcon />
+        </Button>
+      </Box>
     </div>
   );
 };

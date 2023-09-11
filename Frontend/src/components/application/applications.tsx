@@ -1,59 +1,19 @@
-import InfoCard from "../commons/card/card";
-import { Box } from "@mui/material";
-import DisplayDriver from "../commons/driver/displaydriver";
-import styles from "./applications.module.css";
-import { useState } from "react";
-import { Application } from "../../types/application";
-
-const Applications = () => {
-  const [data, setData] = useState<Application[]>([
-    {
-      id: 1,
-      name: "ETS",
-      description: "this is an application",
-      isActive: true,
-    },
-    {
-      id: 3,
-      name: "LMS",
-      description: "this is an application",
-      isActive: false,
-    },
-    {
-      id: 4,
-      name: "LMS",
-      description: "this is an application",
-      isActive: false,
-    },
-    {
-      id: 5,
-      name: "LMS",
-      description: "this is an application",
-      isActive: false,
-    },
-    {
-      id: 6,
-      name: "LMS",
-      description: "this is an application",
-      isActive: false,
-    },
-    {
-      id: 7,
-      name: "LMS",
-      description: "this is an application",
-      isActive: false,
-    },
-    {
-      id: 8,
-      name: "LMS",
-      description: "this is an application",
-      isActive: false,
-    },
-  ]);
-
+import InfoCard from '../commons/card/card';
+import { Box } from '@mui/material';
+import DisplayDriver from '../commons/driver/displaydriver';
+import styles from './applications.module.css';
+import { useState } from 'react';
+import { data } from '../../utils/dataUtils';
+interface Props {
+  Propdata: data[];
+}
+const Applications = ({ Propdata }: Props) => {
+  const [data, setData] = useState<data[]>(Propdata);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editedCardId, setEditedCardId] = useState(null);
-  const [searchText, setSearchText] = useState("");
+  const [editedCardName, setEditedCardName] = useState('');
+  const [editedCardDescription, setEditedCardDescription] = useState('');
+
+  const [searchText, setSearchText] = useState('');
 
   const renderComponent = () => (
     <div className={styles.scrollControl}>
@@ -61,8 +21,9 @@ const Applications = () => {
         <InfoCard
           data={data}
           setData={setData}
-          code={"App#123"}
-          setEditedCardId={setEditedCardId}
+          code={'App#123'}
+          setEditedCardName={setEditedCardName}
+          setEditedCardDescription={setEditedCardDescription}
           setIsModalOpen={setIsModalOpen}
         />
       </div>
@@ -72,17 +33,20 @@ const Applications = () => {
     <>
       <Box>
         <DisplayDriver
+          AddModalId={1}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           searchText={searchText}
           setSearchText={setSearchText}
           data={data}
           setData={setData}
-          editedCardId={editedCardId}
-          setEditedCardId={setEditedCardId}
+          editedCardName={editedCardName}
+          editedCardDescription={editedCardDescription}
+          setEditedCardName={setEditedCardName}
+          setEditedCardDescription={setEditedCardDescription}
           renderComponent={renderComponent}
-          modalTitle={"Edit Application"}
-          toolBarTitle={"Applications"}
+          modalTitle={'Edit Application'}
+          toolBarTitle={'Applications'}
         />
       </Box>
     </>

@@ -7,12 +7,14 @@ export interface data {
 }
 
 export const handleEdit = (
-  id: number,
-  setEditedCardId: React.Dispatch<React.SetStateAction<null>>,
+  name: string,
+  description: string,
+  setEditedCardName: React.Dispatch<React.SetStateAction<string>>,
+  setEditedCardDescription: React.Dispatch<React.SetStateAction<string>>,
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  console.log(`Edit action for card with ID ${id}`);
-  setEditedCardId(id);
+  setEditedCardName(name);
+  setEditedCardDescription(description);
   setIsModalOpen(true);
 };
 
@@ -39,10 +41,12 @@ export const handleToggleActive = (
 
 export const handleCloseModal = (
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  setEditedCardId: React.Dispatch<React.SetStateAction<null>>
+  setEditedCardName: React.Dispatch<React.SetStateAction<string>>,
+  setEditedCardDescription: React.Dispatch<React.SetStateAction<string>>
 ) => {
   setIsModalOpen(false);
-  setEditedCardId(null);
+  setEditedCardName('');
+  setEditedCardDescription('');
 };
 
 export const handleSearch = (

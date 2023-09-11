@@ -6,17 +6,20 @@ interface FormInputProps {
   label: string;
   type?: string;
   setValue?: any;
+  defaultValue?: string | null;
 }
 
-const FormInputText = ({ name, label, type }: FormInputProps) => {
+const FormInputText = ({ name, label, type, defaultValue }: FormInputProps) => {
   const { control, formState } = useFormContext(); // Access the form's control and state
   const { errors } = formState;
   return (
     <Controller
       name={name}
+      defaultValue={defaultValue}
       control={control}
       render={({ field: { onChange, value } }) => (
         <TextField
+          sx={{ marginBlockEnd: '1rem' }}
           helperText={errors[name] ? errors[name].message : null}
           size='small'
           type={type}
