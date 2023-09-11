@@ -48,7 +48,7 @@ export const useGetEvents = (applicationId: number | undefined) =>
 export const useAddApplication = () => {
   const queryClient = new QueryClient();
 
-  return useMutation<Application[], Error>({
+  return useMutation({
     mutationFn: async () => {
       const response = await apiClient(`/applications`, "post");
       return response.data;
