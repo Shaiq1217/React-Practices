@@ -10,12 +10,12 @@ const connectDB = require("./startup/mongoDb.js");
 const errorMiddleware = require("./src/middlewares/error.js");
 const swaggerConfig = require("./startup/swagger.js");
 
-app.use(cors({ origin: "http://localhost:5173/" }));
+app.use(cors({ origin: "*" }));
 app.use(helmet());
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "traceid, Content-Type");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "traceid, Content-Type");
   next();
 });
 
