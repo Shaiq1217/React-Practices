@@ -11,7 +11,8 @@ interface Props {
   data: data[];
   code: string;
   setData: React.Dispatch<React.SetStateAction<data[]>>;
-  setEditedCardId: React.Dispatch<React.SetStateAction<null>>;
+  setEditedCardName: React.Dispatch<React.SetStateAction<string>>;
+  setEditedCardDescription: React.Dispatch<React.SetStateAction<string>>;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -19,7 +20,8 @@ export default function InfoCard({
   data,
   setData,
   code,
-  setEditedCardId,
+  setEditedCardName,
+  setEditedCardDescription,
   setIsModalOpen,
 }: Props) {
   return (
@@ -62,7 +64,15 @@ export default function InfoCard({
           <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <HandlerButtons
               isActive={e.isActive}
-              onEdit={() => handleEdit(e.id, setEditedCardId, setIsModalOpen)}
+              onEdit={() =>
+                handleEdit(
+                  e.name,
+                  e.description,
+                  setEditedCardName,
+                  setEditedCardDescription,
+                  setIsModalOpen
+                )
+              }
               onDelete={() => handleDelete(e.id, data, setData)}
               onToggleActive={() => handleToggleActive(e.id, data, setData)}
             />

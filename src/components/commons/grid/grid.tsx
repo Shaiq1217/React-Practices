@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './Grid.module.css';
+import styles from './grid.module.css';
 import {
   Table,
   TableBody,
@@ -19,18 +19,24 @@ import {
 import PaginationControls from '../paginationControl/paginationControl';
 
 interface Props {
-  data: data[];
-  setData: React.Dispatch<React.SetStateAction<data[]>>;
-  setEditedCardId: React.Dispatch<React.SetStateAction<null>>;
+  data: initialData[];
+  editedCardName: string | null;
+  editedCardDescription: string | null;
+  setData: React.Dispatch<React.SetStateAction<initialData[]>>;
+  setEditedCardName: React.Dispatch<React.SetStateAction<string>>;
+  setEditedCardDescription: React.Dispatch<React.SetStateAction<string>>;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const itemsPerPage = 5; // Adjust this value as needed
+const itemsPerPage = 5;
 
 const GridComponent: React.FC<Props> = ({
   data,
   setData,
-  setEditedCardId,
+  editedCardName,
+  editedCardDescription,
+  setEditedCardName,
+  setEditedCardDescription,
   setIsModalOpen,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -67,7 +73,13 @@ const GridComponent: React.FC<Props> = ({
                   <HandlerButtons
                     isActive={ele.isActive}
                     onEdit={() =>
-                      handleEdit(ele.id, setEditedCardId, setIsModalOpen)
+                      handleEdit(
+                        ele.name,
+                        ele.description,
+                        setEditedCardName,
+                        setEditedCardDescription,
+                        setIsModalOpen
+                      )
                     }
                     onDelete={() => handleDelete(ele.id, data, setData)}
                     onToggleActive={() =>

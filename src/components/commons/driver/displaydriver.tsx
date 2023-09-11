@@ -1,7 +1,7 @@
 import { data, handleSearch, handleCloseModal } from '../../../utils/dataUtils';
 import React from 'react';
-import styles from './DisplayDriver.module.css';
-import ToolBar from '../toolbar/toolBar';
+import styles from './displaydriver.module.css';
+import ToolBar from '../toolbar/toolbar';
 import EditModal from '../modal/modal';
 
 interface Props {
@@ -13,9 +13,12 @@ interface Props {
   searchText: string;
   renderComponent: () => void;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setEditedCardId: React.Dispatch<React.SetStateAction<null>>;
-  editedCardId: number | null;
+  setEditedCardName: React.Dispatch<React.SetStateAction<string>>;
+  editedCardName: string | null;
+  setEditedCardDescription: React.Dispatch<React.SetStateAction<string>>;
+  editedCardDescription: string | null;
   isModalOpen: boolean;
+  AddModalId: number;
 }
 const DisplayDriver = ({
   isModalOpen,
@@ -24,26 +27,37 @@ const DisplayDriver = ({
   setSearchText,
   data,
   setData,
-  editedCardId,
-  setEditedCardId,
+  editedCardName,
+  setEditedCardName,
+  editedCardDescription,
+  setEditedCardDescription,
   renderComponent,
   modalTitle,
   toolBarTitle,
+  AddModalId,
 }: Props) => {
   return (
     <>
       <ToolBar
+        AddModalId={AddModalId}
         text={toolBarTitle}
         onSearch={() => handleSearch(searchText, data, setData)}
         setSearchText={setSearchText}
         searchText={searchText}
       />
-      {renderComponent(data)}
+      {renderComponent()}
       <EditModal
         modalTitle={modalTitle}
-        id={editedCardId} // Pass the edited card's ID to the modal
+        nameOriginal={editedCardName}
+        descriptionOriginal={editedCardDescription}
         open={isModalOpen}
-        handleClose={() => handleCloseModal(setIsModalOpen, setEditedCardId)}
+        handleClose={() =>
+          handleCloseModal(
+            setIsModalOpen,
+            setEditedCardName,
+            setEditedCardDescription
+          )
+        }
       />
     </>
   );

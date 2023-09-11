@@ -1,8 +1,6 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/Edit';
 import { Box, Switch } from '@mui/material';
-import { MouseEventHandler } from 'react';
-
 interface Props {
   isActive: boolean;
   onEdit: () => void;
@@ -19,7 +17,12 @@ const HandlerButtons = ({
   return (
     <>
       <Box
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 3,
+        }}
       >
         <EditRoundedIcon
           sx={{ fontSize: 18, cursor: 'pointer', marginLeft: 'auto' }}

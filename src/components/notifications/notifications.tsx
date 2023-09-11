@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box } from '@mui/material';
-import GridComponent from '../commons/grid/Grid';
+import GridComponent from '../commons/grid/grid';
 import DisplayDriver from '../commons/driver/displaydriver';
 const Notifications = () => {
   const [data, setData] = useState([
@@ -36,14 +36,19 @@ const Notifications = () => {
     },
   ]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editedCardId, setEditedCardId] = useState(null);
   const [searchText, setSearchText] = useState('');
+  const [editedCardName, setEditedCardName] = useState('');
+  const [editedCardDescription, setEditedCardDescription] = useState('');
+
   const renderComponent = () => (
     <Box>
       <GridComponent
         data={data}
         setData={setData}
-        setEditedCardId={setEditedCardId}
+        editedCardName={editedCardName}
+        editedCardDescription={editedCardDescription}
+        setEditedCardName={setEditedCardName}
+        setEditedCardDescription={setEditedCardDescription}
         setIsModalOpen={setIsModalOpen}
       />
     </Box>
@@ -53,14 +58,17 @@ const Notifications = () => {
     <>
       <Box sx={{ marginBlockStart: '2rem' }}>
         <DisplayDriver
+          AddModalId={3}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           searchText={searchText}
           setSearchText={setSearchText}
           data={data}
           setData={setData}
-          editedCardId={editedCardId}
-          setEditedCardId={setEditedCardId}
+          editedCardName={editedCardName}
+          editedCardDescription={editedCardDescription}
+          setEditedCardName={setEditedCardName}
+          setEditedCardDescription={setEditedCardDescription}
           renderComponent={renderComponent}
           modalTitle={'Edit Notification'}
           toolBarTitle={'Notifications'}
