@@ -9,7 +9,8 @@ interface Config {
 }
 
 const apiClient = (url: string, method = "get", data = {}) => {
-  const baseURL = process.env.REACT_APP_API_HOST;
+  // const baseURL = process.env.REACT_APP_API_HOST;
+  const baseURL = import.meta.env.VITE_REACT_APP_API_HOST;
   const config: Config = {
     url: url,
     method: method,
@@ -24,9 +25,9 @@ const apiClient = (url: string, method = "get", data = {}) => {
   const token = localStorage.getItem("token");
 
   axios.interceptors.request.use((config) => {
-    config.headers.common = { traceid: -1 };
+    config.headers.traceid = -1;
     if (token) {
-      config.headers.common = { "x-auth-token": token };
+      config.headers["x-auth-token"] = token;
     }
     return config;
   });

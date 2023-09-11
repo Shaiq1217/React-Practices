@@ -3,10 +3,9 @@ export interface ISignUp {
   firstName: string;
   lastName: string;
   email: string;
-  username: string;
 }
 
 export interface ILogin {
-  username: string;
+  email: string;
   password: string;
 }

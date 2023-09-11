@@ -19,7 +19,22 @@ export const useGetApplication = (applicationId: number | undefined) =>
     queryFn: async (context: QueryFunctionContext) => {
       const { queryKey } = context;
       const applicationId = queryKey[1];
-      const response = await apiClient(`/applications${applicationId}`, "get");
+      const response = await apiClient(`/applications/${applicationId}`, "get");
+      return response.data;
+    },
+    staleTime: 1 * 60 * 1000,
+  });
+
+export const useGetEvents = (applicationId: number | undefined) =>
+  useQuery<Application[], Error>({
+    queryKey: ["events", applicationId, "applications"],
+    queryFn: async (context: QueryFunctionContext) => {
+      const { queryKey } = context;
+      const applicationId = queryKey[1];
+      const response = await apiClient(
+        `/applications/${applicationId}/events`,
+        "get"
+      );
       return response.data;
     },
     staleTime: 1 * 60 * 1000,
